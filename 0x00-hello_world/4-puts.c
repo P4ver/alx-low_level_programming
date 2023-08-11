@@ -1,7 +1,9 @@
 #include <stdio.h>
 /**
- *my first c project
- * /
+ * main - the entry point
+ *
+ * Return: to work successfully
+ */
 int main(void)
 {
 	puts("\"Programming is like building a multilingual puzzle");
