@@ -7,11 +7,12 @@
  */
 int main(void)
 {
-	int i;
-	char nu[20] = "0123456789";
+	int o = 48;
 
-	for (i = 0; i <= 9; i++)
-		putchar(nu[i]);
+	for (o = 0; o <= 9; o++)
+	{
+		putchar(o + 48);
+	}
 	putchar('\n');
 	return (0);
 }
