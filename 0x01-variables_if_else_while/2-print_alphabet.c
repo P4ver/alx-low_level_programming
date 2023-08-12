@@ -14,6 +14,6 @@ int main(void)
 	{
 		putchar(alphbt[i]);
 	}
-	puchar('\n');
+	putchar('\n');
 	return (0);
 }
