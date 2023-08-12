@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 /**
- *main - the entry point 
+ *main - the entry point
  *
  *Description: project to get the last dgit of the nmbr
  *Return: 0 to work successfully
@@ -17,7 +17,7 @@ int main(void)
 	last_d = n % 10;
 	if (last_d > 5)
 		printf("Last digit of %d is %d and is greater than 5\n", n, last_d);
-	else if(last_d == 0)
+	else if (last_d == 0)
 		printf("Last digit of %d is %d and is 0\n", n, last_d);
 	else
 		printf("Last digit of %d is %d and is less than 6 and not 0\n", n, last_d);
