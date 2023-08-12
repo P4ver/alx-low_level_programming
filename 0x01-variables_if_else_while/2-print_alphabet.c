@@ -8,5 +8,6 @@ int main(void)
 	{
 		putchar(alphbt[i]);
 	}
+	putchar("\n");
 	return (0);
 }
