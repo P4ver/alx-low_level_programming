@@ -13,6 +13,8 @@ int main(void)
 	for (i = 0 ; i <= 9; i++)
 	{
 		putchar(i + 48);
+		if (i == 9)
+			break;
 		putchar(44);
 		putchar(32);
 	}
