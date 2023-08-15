@@ -1,8 +1,6 @@
 #include "main.h"
 /**
- *main - the entry point ,
- *
- *Description : print the alphabet a-z.
+ * print_alphabet - print alphabet using ascii code and for
  *
  *Return: 0 always
  */
