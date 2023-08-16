@@ -2,7 +2,7 @@
 /**
  * _abs - it's a function computes the absulte
  *	value of int
- *@int: the val that well be computed the abs
+ *@p: the val that well be computed the abs
  *
  *Return: p*(-1) will be positive
  */
