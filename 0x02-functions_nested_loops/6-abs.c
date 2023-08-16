@@ -6,7 +6,7 @@
  *
  *Return: p*(-1) will be positive
  */
-int _abs(int)
+int _abs(int p)
 {
 	if (p < 0)
 		return (p * (-1));
