@@ -4,7 +4,6 @@
  *
  *@w: the number which the last digit will be
  *	determined
- *@last_d: will computes the modulo
  *
  *Return: will return the value of last digit
  */
