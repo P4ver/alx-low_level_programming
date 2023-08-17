@@ -40,7 +40,7 @@ void print_times_table(int n)
 				}
 				else
 				{
-					if (j != 0 && p < 99)
+					if (k != 0 && p < 99)
 					{
 						_putchar(44);
 						_putchar(32);
