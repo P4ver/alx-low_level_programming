@@ -19,4 +19,5 @@ void more_numbers(void)
 			_putchar('0' + (q % 10));
 		}
 	}
+	_putchar('\n');
 }
