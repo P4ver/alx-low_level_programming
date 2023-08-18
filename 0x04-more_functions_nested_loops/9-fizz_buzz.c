@@ -12,22 +12,24 @@ int main(void)
 	{
 		if (h % 3 == 0 && h % 5 == 0)
 		{
-			printf("FizzBuzz ");
+			printf(" FizzBuzz");
 			continue;
 		}
 		else if (h % 3 == 0)
 		{
-			printf("Fizz ");
+			printf(" Fizz");
 			continue;
 		}
 		else if (h % 5 == 0)
-		{	printf("Buzz ");
+		{	printf(" Buzz");
 			continue;
 		}
-		printf("%d", h);
-		if (h == 100)
-			break;
-		printf(" ");
+		else if (h == 1)
+		{
+			printf("1");
+			continue;
+		}
+		printf(" %d", h);
 	}
 	printf("\n");
 	return (0);
