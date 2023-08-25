@@ -7,8 +7,8 @@
 char *leet(char *q)
 {
 	int a, b;
-	char lt_1[] = {aAeEoOtTlL};
-	char lt_2[] = {4433007711};
+	char lt_1[] = "aAeEoOtTlL";
+	char lt_2[] = "4433007711";
 
 	for (a = 0; q[a] != '\0'; a++)
 	{
