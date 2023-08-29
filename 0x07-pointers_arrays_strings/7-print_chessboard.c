@@ -5,10 +5,16 @@
  */
 void print_chessboard(char (*a)[8])
 {
-	for (int qi = 0; qi < 8; qi++)
+	int qi;
+	int qb;
+
+	for (qi = 0; qi < 8; qi++)
 	{
-		for (int qb = 0; qb < 8; qb++)
-			printf("%c", a[i][j]);
-	printf("\n");
+		for (qb = 0; qb < 8; qb++)
+		{
+			_putchar(a[qi][qb]);
+			_putchar(' ');
+		}
+	_putchar('\n');
 	}
 }
