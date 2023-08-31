@@ -7,7 +7,7 @@
  */
 int _primo(int p, int g)
 {
-	if (i == 1)
+	if (g == 1)
 		return (1);
 	if (g > 0 && (p % g) == 0)
 		return (0);
