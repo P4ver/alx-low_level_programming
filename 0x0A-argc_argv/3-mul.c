@@ -31,10 +31,16 @@ int strng_toint(char *ts)
 	}
 	return (res * s);
 }
+/**
+ * main - the entry point,
+ *@argc: nmber of command line 'arg,
+ *@argv: nmber of command line 'arg strings,
+ *Return: '0' to work successfully,
+ */
 int main(int argc, char *argv[])
 {
-	int n1;
-	int n2;
+	int n_1;
+	int n_2;
 	int res;
 
 	if (argc != 3)
@@ -42,9 +48,9 @@ int main(int argc, char *argv[])
 		printf("Error\n");
 		return (1);
 	}
-	n1 = strng_toint(argv[1]);
-	n2 = strng_toint(argv[2]);
-	res = n1 * n2;
+	n_1 = strng_toint(argv[1]);
+	n_2 = strng_toint(argv[2]);
+	res = n_1 * n_2;
 
 	printf("%d\n", res);
 	return (0);
