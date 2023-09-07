@@ -27,7 +27,7 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 		return (NULL);
 	for (q = 0; q < ln_1; q++)
 		re_s[q] = s1[q];
-	while ( y < n)
+	while (y < n)
 	{
 		re_s[q] = s2[y];
 		y++;
