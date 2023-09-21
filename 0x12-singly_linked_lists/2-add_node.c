@@ -1,21 +1,21 @@
 #include "lists.h"
 list_t *add_node(list_t **head, const char *str)
 {
-	list_t *nd_nw;
+	list_t *ndnw;
 
 	if (str == NULL)
 		return (NULL);
-	nd_nw = malloc(sizeof(list_t));
-	if (nd_nw == NULL)
+	ndnw = malloc(sizeof(list_t));
+	if (ndnw == NULL)
 		return (NULL);
-	nd_nw->str = strdup(str);
-	if (nd_nw->str == NULL)
+	ndnw->str = strdup(str);
+	if (ndnw->str == NULL)
 	{
-		free(nd_nw);
+		free(ndnw);
 		return (NULL);
 	}
-	nd_nw->len = strlen(str);
-	nd_nw->next = *head;
-	*head = nd_nw;
-	return (nd_nw);
+	ndnw->len = strlen(str);
+	ndnw->next = *head;
+	*head = ndnw;
+	return (ndnw);
 }
