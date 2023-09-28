@@ -2,7 +2,6 @@
 /**
  * print_binary - function that prints the binary representation of a nmb,
  * @n: integer var to be converted,
- * @Return: return the value of bin,
  */
 void print_binary(unsigned long int n)
 {
