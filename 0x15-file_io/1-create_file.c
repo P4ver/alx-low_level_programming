@@ -6,6 +6,13 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+/**
+ * create_file - a function that creates a file,
+ * @filename: the name of file (ptr)
+ * @text_content: the txt,
+ * Return: 1 on success, -1 on failure (file can not be created,
+ *	file can not be written, write “fails”
+ */
 int create_file(const char *filename, char *text_content)
 {
 	int  f_o;
