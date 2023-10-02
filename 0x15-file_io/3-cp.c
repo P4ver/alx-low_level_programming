@@ -7,9 +7,8 @@
  */
 int main(int cc, char **cv)
 {
-	int f_frm, f_to;
+	int f_frm, f_to, n_read;
 	char thebu[BUFFER_SIZE];
-	int n_read;
 
 	if (cc != 3)
 	{
@@ -19,7 +18,7 @@ int main(int cc, char **cv)
 	f_frm = open(cv[1], O_RDONLY);
 	if (f_frm == -1)
 	{
-		dprintf(2, "Error: Can't read from file %s\n", cv[0]);
+		dprintf(2, "Error: Can't read from file %s\n", cv[1]);
 		exit(98);
 	}
 	f_to = open(cv[2], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR
