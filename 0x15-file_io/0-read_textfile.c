@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+/**
+ * read_textfile -  function that reads a text file and
+ *	prints it to the POSIX standard output,
+ * @filename: the name of the file (ptr)
+ * @letters: the num of lttrs,
+ * Return: the actual number of letters it could read and print
+ * if the file can not be opened or read, filename is NULL, return 0,
+ */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	FILE *fl_ot;
