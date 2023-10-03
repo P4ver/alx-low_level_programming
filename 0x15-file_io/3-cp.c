@@ -11,10 +11,7 @@ int main(int cc, char **cv)
 	char thebu[BUFFER_SIZE];
 
 	if (cc != 3)
-	{
-		dprintf(2, "Usage: %s file_from file_to\n", cv[0]);
-		exit(97);
-	}
+		dprintf(2, "Usage: %s file_from file_to\n", cv[0]), exit(97);
 	f_frm = open(cv[1], O_RDONLY);
 	if (f_frm == -1)
 	{
