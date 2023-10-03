@@ -14,24 +14,15 @@ int main(int cc, char **cv)
 		dprintf(2, "Usage: %s file_from file_to\n", cv[0]), exit(97);
 	f_frm = open(cv[1], O_RDONLY);
 	if (f_frm == -1)
-	{
-		dprintf(2, "Error: Can't read from file %s\n", cv[1]);
-		exit(98);
-	}
+		dprintf(2, "Error: Can't read from file %s\n", cv[1]), exit(98);
 	f_to = open(cv[2], O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR
 			| S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 	if (f_to == -1)
-	{
-		dprintf(2, "Error: Can't write to %s\n", cv[2]);
-		exit(99);
-	}
+		dprintf(2, "Error: Can't write to %s\n", cv[2]), exit(99);
 	while ((n_read = read(f_frm, thebu, BUFFER_SIZE)) > 0)
 	{
 		if (write(f_to, thebu, n_read) == -1)
-		{
-			dprintf(2, "Error: Can't write to %s\n", cv[2]);
-			exit(99);
-		}
+			dprintf(2, "Error: Can't write to %s\n", cv[2]), exit(99);
 	}
 	if (close(f_frm) == -1)
 	{
