@@ -9,27 +9,32 @@
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	FILE *fl_ot;
+	int f_dd;
 	char *thebu;
 	ssize_t nrd, nwrtn;
 
 	if (filename == NULL)
 		return (0);
-	fl_ot = fopen(filename, "r");
-	if (fl_ot == NULL)
+	f_dd = open(filename, O_RDONLY);
+	if (f_dd == -1)
 		return (0);
-	thebu = malloc(letters + 1);
+	thebu = malloc(letters);
 	if (thebu == NULL)
 	{
-		fclose(fl_ot);
+		close(f_dd);
 		return (0);
 	}
-	nrd = fread(thebu, 1, letters, fl_ot);
-	thebu[nrd] = '\0';
-	nwrtn = fwrite(thebu, 1, nrd, stdout);
+	nrd = read(f_dd, thebu, letters);
+	if (nrd == -1)
+	{
+		free(thebu);
+		close(f_dd);
+		return (0);
+	}
+	nwrtn = write(STDOUT_FILENO, thebu, nrd);
 	free(thebu);
-	fclose(fl_ot);
+	close(f_dd);
 	if (nrd != nwrtn)
 		return (0);
-	return (nrd);
+	return (nwrtn);
 }
