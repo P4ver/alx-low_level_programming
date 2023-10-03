@@ -1,4 +1,6 @@
 #include "main.h"
+#define F_PERR (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH)
+
 /**
  * main - the entry point,
  * @cc: the numb of arg,
@@ -16,8 +18,7 @@ int main(int cc, char **cv)
 	f_frm = open(cv[1], O_RDONLY);
 	if (f_frm == -1)
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", cv[1]), exit(98);
-	f_to = open(cv[2], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR
-			| S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+	f_to = open(cv[2], O_WRONLY | O_CREAT | O_TRUNC, F_PERR);
 	if (f_to == -1)
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", cv[2]), exit(99);
 	while ((n_read = read(f_frm, thebu, BUFFER_SIZE)) > 0)
