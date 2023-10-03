@@ -11,7 +11,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 {
 	FILE *fl_ot;
 	char *thebu;
-	size_t nrd, nwrtn;
+	ssize_t nrd, nwrtn;
 
 	if (filename == NULL)
 		return (0);
