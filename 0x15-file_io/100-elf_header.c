@@ -1,4 +1,17 @@
 #include "main.h"
+void print_elf_header_info(const Elf64_Ehdr *h_dr)
+{
+	printf("ELF Header:\n");
+	printf("  Magic:   %02x %02x %02x %02x\n", h_dr->e_ident[EI_MAG0], h_dr->e_ident[EI_MAG1], h_dr->e_ident[EI_MAG2], h_dr->e_ident[EI_MAG3]);
+	printf("  Class:                             %s\n", h_dr->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" : "ELF32");
+	printf("  Data:                              %s\n", h_dr->e_ident[EI_DATA] == ELFDATA2LSB ? "2's complement, little endian" : "2's complement, big endian");
+	printf("  Version:                           %d (current)\n", h_dr->e_ident[EI_VERSION]);
+	printf("  OS/ABI:                            %s\n", h_dr->e_ident[EI_OSABI] == ELFOSABI_SYSV ? "UNIX - System V" : "Other");
+	printf("  ABI Version:                       %d\n", h_dr->e_ident[EI_ABIVERSION]);
+	printf("  Type:                              %s\n", h_dr->e_type);
+	printf("  Entry point address:               %#lx\n", h_dr->e_entry);
+}
+
 /**
  * main - the entry point
  * @argc: intgere nbr argument,
