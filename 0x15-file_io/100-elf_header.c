@@ -1,14 +1,18 @@
 #include "main.h"
 void print_elf_header_info(const Elf64_Ehdr *h_dr)
 {
+	int q;
 	printf("ELF Header:\n");
-	printf("  Magic:   %02x %02x %02x %02x\n", h_dr->e_ident[EI_MAG0], h_dr->e_ident[EI_MAG1], h_dr->e_ident[EI_MAG2], h_dr->e_ident[EI_MAG3]);
+	printf("  Magic:   ");
+	for (q = 0; q < EI_NIDENT; ++q)
+		printf("%02x ", h_dr->e_ident[q]);
+	printf("\n");
 	printf("  Class:                             %s\n", h_dr->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" : "ELF32");
 	printf("  Data:                              %s\n", h_dr->e_ident[EI_DATA] == ELFDATA2LSB ? "2's complement, little endian" : "2's complement, big endian");
 	printf("  Version:                           %d (current)\n", h_dr->e_ident[EI_VERSION]);
 	printf("  OS/ABI:                            %s\n", h_dr->e_ident[EI_OSABI] == ELFOSABI_SYSV ? "UNIX - System V" : "Other");
 	printf("  ABI Version:                       %d\n", h_dr->e_ident[EI_ABIVERSION]);
-	printf("  Type:                              %s\n", h_dr->e_type);
+	printf("  Type:                              %s\n", h_dr->e_type == ET_EXEC ? "EXEC (Executable file)" : "Other");
 	printf("  Entry point address:               %#lx\n", h_dr->e_entry);
 }
 
@@ -25,16 +29,10 @@ int main(int argc, char *argv[])
 	ssize_t bytes_read;
 
 	if (argc != 2)
-	{
-		dprintf(2, "Usage: %s elf_filename\n", argv[0]);
-		exit(98);
-	}
+		dprintf(2, "Usage: elf_header elf_filename\n"), exit(98);
 
 	if (f_d == -1)
-	{
-		dprintf(2, "Error: Could not open file %s\n", argv[1]);
-		exit(98);
-	}
+		dprintf(2, "Error: Could not open file %s\n", argv[1]), exit(98);
 
 	bytes_read = read(f_d, &elf_h_dr, sizeof(Elf64_Ehdr));
 
