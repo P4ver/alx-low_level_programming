@@ -1,19 +1,157 @@
 #include "main.h"
-void print_elf_header_info(const Elf64_Ehdr *h_dr)
+void r_magic(Elf64_Ehdr h_dr)
 {
 	int q;
-	printf("ELF Header:\n");
+
 	printf("  Magic:   ");
 	for (q = 0; q < EI_NIDENT; ++q)
-		printf("%02x ", h_dr->e_ident[q]);
+		printf("%2.2x%s", h_dr.e_ident[q], q == EI_NIDENT - 1? "\n" : " ");
+}
+void r_clss(Elf64_Ehdr h_dr)
+{
+	printf("  Class:                             ");
+	switch (h_dr.e_ident[EI_CLASS])
+	{
+		case ELFCLASS64:
+			printf("ELF64");
+			break;
+		case ELFCLASS32:
+			printf("ELF32");
+			break;
+		case ELFCLASSNONE:
+			printf("none");
+			break;
+	}
 	printf("\n");
-	printf("  Class:                             %s\n", h_dr->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" : "ELF32");
-	printf("  Data:                              %s\n", h_dr->e_ident[EI_DATA] == ELFDATA2LSB ? "2's complement, little endian" : "2's complement, big endian");
-	printf("  Version:                           %d (current)\n", h_dr->e_ident[EI_VERSION]);
-	printf("  OS/ABI:                            %s\n", h_dr->e_ident[EI_OSABI] == ELFOSABI_SYSV ? "UNIX - System V" : "Other");
-	printf("  ABI Version:                       %d\n", h_dr->e_ident[EI_ABIVERSION]);
-	printf("  Type:                              %s\n", h_dr->e_type == ET_EXEC ? "EXEC (Executable file)" : "Other");
-	printf("  Entry point address:               %#lx\n", h_dr->e_entry);
+}
+void r_dt(Elf64_Ehdr h_dr)
+{
+	printf("  Data:                              ");
+	switch (h_dr.e_ident[EI_DATA])
+	{
+		case ELFDATA2MSB:
+			printf("2's complement, big endian");
+			break;
+		case ELFDATA2LSB:
+			printf("2's complement, little endian");
+			break;
+		case ELFDATANONE:
+			printf("none");
+			break;
+	}
+	printf("\n");
+}
+void r_vrs(Elf64_Ehdr h_dr)
+{
+	printf("  Version:                           %d", h_dr.e_ident[EI_VERSION]);
+	if (h_dr.e_ident[EI_VERSION] == EV_CURRENT)
+		printf(" (current)");
+	else if (h_dr.e_ident[EI_VERSION] == EV_NONE)
+		printf("%s", "");
+	printf("\n");
+}
+void r_osb(Elf64_Ehdr h_dr)
+{
+	printf("  OS/ABI:                            ");
+	switch (h_dr.e_ident[EI_OSABI])
+	{
+		case ELFOSABI_NONE:
+			printf("UNIX - System V");
+			break;
+		case ELFOSABI_HPUX:
+			printf("UNIX - HP-UX");
+			break;
+		case ELFOSABI_NETBSD:
+			printf("UNIX - NetBSD");
+			break;
+		case ELFOSABI_LINUX:
+			printf("UNIX - Linux");
+			break;
+		case ELFOSABI_SOLARIS:
+			printf("UNIX - Solaris");
+			break;
+		case ELFOSABI_AIX:
+			printf("UNIX - AIX");
+			break;
+		case ELFOSABI_IRIX:
+			printf("UNIX - IRIX");
+			break;
+		case ELFOSABI_FREEBSD:
+			printf("UNIX - FreeBSD");
+			break;
+		case ELFOSABI_TRU64:
+			printf("UNIX - TRU64");
+			break;
+		case ELFOSABI_STANDALONE:
+			printf("Standalone App");
+			break;
+		default:
+			printf("<unknown: %x>", h_dr.e_ident[EI_OSABI]);
+			break;
+	}
+	printf("\n");
+}
+void r_abi(Elf64_Ehdr h_dr)
+{
+	printf("  ABI Version:                       %d\n", h_dr.e_ident[EI_ABIVERSION]);
+}
+void r_type(Elf64_Ehdr h_dr)
+{
+	char *g = (char *)&h_dr.e_type;
+	int q = 0;
+
+	printf("  Type:                              ");
+	if (h_dr.e_ident[EI_DATA] == ELFDATA2MSB)
+		q = 1;
+	switch (g[q])
+	{
+		case ET_NONE:
+			printf("NONE (None)");
+			break;
+		case ET_REL:
+			printf("REL (Relocatabel)");
+			break;
+		case ET_EXEC:
+			printf("EXEC (Executable file)");
+			break;
+		case ET_DYN:
+			printf("DYN (Shared object file)");
+			break;
+		case ET_CORE:
+			printf("CORE (Core file)");
+			break;
+		default:
+			printf("<unknwon>: %x", g[q]);
+			break;
+	}
+	printf("\n");
+}
+void r_ent(Elf64_Ehdr h_dr)
+{
+	int q = 0, lnth = 0;
+	unsigned char *t = (unsigned char *)&h_dr.e_entry;
+
+	printf("  Entry point address:               0x");
+	if (h_dr.e_ident[EI_DATA] != ELFDATA2MSB)
+	{
+		q = (h_dr.e_ident[EI_CLASS] == ELFCLASS64) ? 7 : 3;
+		while (!t[q])
+			q--;
+		printf("%x", t[q--]);
+		for (; q >= 0; q--)
+			printf("%02x", t[q]);
+	}
+	else
+	{
+		q = 0;
+		lnth = (h_dr.e_ident[EI_CLASS] == ELFCLASS64) ? 7 : 3;
+		while (!t[q])
+			q++;
+		printf("%x", t[q++]);
+		for (; q <= lnth; q++)
+			printf("%02x", t[q]);
+	}
+	printf("\n");
 }
 
 /**
@@ -26,7 +164,7 @@ int main(int argc, char *argv[])
 {
 	int f_d = open(argv[1], O_RDONLY);
 	Elf64_Ehdr elf_h_dr;
-	ssize_t bytes_read;
+	ssize_t b_rd;
 
 	if (argc != 2)
 		dprintf(2, "Usage: elf_header elf_filename\n"), exit(98);
@@ -34,19 +172,26 @@ int main(int argc, char *argv[])
 	if (f_d == -1)
 		dprintf(2, "Error: Could not open file %s\n", argv[1]), exit(98);
 
-	bytes_read = read(f_d, &elf_h_dr, sizeof(Elf64_Ehdr));
+	b_rd = read(f_d, &elf_h_dr, sizeof(Elf64_Ehdr));
 
-	if (bytes_read != sizeof(Elf64_Ehdr) ||
-			elf_h_dr.e_ident[EI_MAG0] != ELFMAG0 ||
-			elf_h_dr.e_ident[EI_MAG1] != ELFMAG1 ||
-			elf_h_dr.e_ident[EI_MAG2] != ELFMAG2 ||
-			elf_h_dr.e_ident[EI_MAG3] != ELFMAG3)
-	{
-		dprintf(2, "Error: Not an ELF file: %s\n", argv[1]);
-		close(f_d);
-		exit(98);
-	}
-	print_elf_header_info(&elf_h_dr);
-	close(f_d);
+	if (b_rd < 1 || b_rd != sizeof(Elf64_Ehdr))
+		dprintf(2, "Error: Could not read from file %s\n", argv[1]), exit(98);
+	if (elf_h_dr.e_ident[0] == 0x7f && elf_h_dr.e_ident[1] == 'E' &&
+			elf_h_dr.e_ident[2] == 'L' && elf_h_dr.e_ident[3] == 'F')
+		printf("ELF Header:\n");
+	else
+		dprintf(2, "Error: Not an ELF file: %s\n", argv[1]), exit(98);
+
+	r_magic(elf_h_dr);
+	r_clss(elf_h_dr);
+	r_dt(elf_h_dr);
+	r_vrs(elf_h_dr);
+	r_osb(elf_h_dr);
+	r_abi(elf_h_dr);
+	r_type(elf_h_dr);
+	r_ent(elf_h_dr);
+
+	if (close(f_d))
+		dprintf(2, "Error closing file %d\n", f_d), exit(98);
 	return (0);
 }
