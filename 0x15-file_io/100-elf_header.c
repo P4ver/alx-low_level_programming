@@ -1,12 +1,20 @@
 #include "main.h"
+/**
+* r_magic - print 'ELF' magic ,
+* @h_dr: the 'ELF' headr,
+*/
 void r_magic(Elf64_Ehdr h_dr)
 {
 	int q;
 
 	printf("  Magic:   ");
 	for (q = 0; q < EI_NIDENT; ++q)
-		printf("%2.2x%s", h_dr.e_ident[q], q == EI_NIDENT - 1? "\n" : " ");
+		printf("%2.2x%s", h_dr.e_ident[q], q == EI_NIDENT - 1 ? "\n" : " ");
 }
+/**
+* r_clss - print 'ELF' clss,
+* @h_dr: the 'ELF' headr,
+*/
 void r_clss(Elf64_Ehdr h_dr)
 {
 	printf("  Class:                             ");
@@ -24,6 +32,10 @@ void r_clss(Elf64_Ehdr h_dr)
 	}
 	printf("\n");
 }
+/**
+* r_dt - print 'ELF' data,
+* @h_dr: the 'ELF' headr,
+*/
 void r_dt(Elf64_Ehdr h_dr)
 {
 	printf("  Data:                              ");
@@ -41,6 +53,10 @@ void r_dt(Elf64_Ehdr h_dr)
 	}
 	printf("\n");
 }
+/**
+* r_vrs - print 'ELF' version,
+* @h_dr: the 'ELF' headr,
+*/
 void r_vrs(Elf64_Ehdr h_dr)
 {
 	printf("  Version:                           %d", h_dr.e_ident[EI_VERSION]);
@@ -50,6 +66,10 @@ void r_vrs(Elf64_Ehdr h_dr)
 		printf("%s", "");
 	printf("\n");
 }
+/**
+* r_osb - print 'ELF' osabi,
+* @h_dr: the 'ELF' headr,
+*/
 void r_osb(Elf64_Ehdr h_dr)
 {
 	printf("  OS/ABI:                            ");
@@ -91,10 +111,19 @@ void r_osb(Elf64_Ehdr h_dr)
 	}
 	printf("\n");
 }
+/**
+* r_abi - print 'ELF' abi,
+* @h_dr: the 'ELF' headr,
+*/
 void r_abi(Elf64_Ehdr h_dr)
 {
-	printf("  ABI Version:                       %d\n", h_dr.e_ident[EI_ABIVERSION]);
+	printf("  ABI Version:                       %d\n",
+			h_dr.e_ident[EI_ABIVERSION]);
 }
+/**
+* r_type - print 'ELF' type,
+* @h_dr: the 'ELF' headr,
+*/
 void r_type(Elf64_Ehdr h_dr)
 {
 	char *g = (char *)&h_dr.e_type;
@@ -126,6 +155,10 @@ void r_type(Elf64_Ehdr h_dr)
 	}
 	printf("\n");
 }
+/**
+* r_ent - print 'ELF' ent,
+* @h_dr: the 'ELF' headr,
+*/
 void r_ent(Elf64_Ehdr h_dr)
 {
 	int q = 0, lnth = 0;
