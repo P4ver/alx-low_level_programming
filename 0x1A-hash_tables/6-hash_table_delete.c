@@ -1,4 +1,8 @@
 #include "hash_tables.h"
+/**
+ * hash_table_delete - functn that deletes a hash tble,
+ * @ht: hash tbl to add,
+ */
 void hash_table_delete(hash_table_t *ht)
 {
 	unsigned long int q;
