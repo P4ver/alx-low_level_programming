@@ -3,12 +3,28 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+
+/**
+ * struct listint_s - singly linked lst
+ *
+ * @n: int
+ * @index: ndx of the node in the list
+ * @next: pntr to the next node
+ */
 typedef struct listint_s
 {
 	int n;
 	size_t index;
 	struct listint_s *next;
 } listint_t;
+/**
+ * struct skiplist_s - singly linked lst with an express lane
+ *
+ * @n: Int,
+ * @index: ndx of the node in the lst
+ * @next: pnt to the next node
+ * @express: pntr to the next node in the express lane
+ */
 typedef struct skiplist_s
 {
 	int n;
